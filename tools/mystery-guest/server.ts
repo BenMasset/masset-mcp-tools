@@ -25,8 +25,8 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { CallToolResult, ReadResourceResult } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 import { APP_HTML } from "./app-html.generated.js";
-import { todaysGame } from "./game.ts";
-import { matchesFigure } from "./guess.ts";
+import { todaysGame } from "./game.js";
+import { matchesFigure } from "./guess.js";
 
 const resourceUri = "ui://mystery-guest/card.html";
 

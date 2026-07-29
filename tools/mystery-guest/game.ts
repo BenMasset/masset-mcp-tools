@@ -13,7 +13,7 @@
  * pin the clock. Defaults to now.
  */
 
-import { FIGURES, type Figure } from "./figures.ts";
+import { FIGURES, type Figure } from "./figures.js";
 
 /** The UTC day that is game #1. */
 export const EPOCH_DATE = "2026-07-29";

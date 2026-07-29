@@ -6,9 +6,9 @@
 
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { FIGURES, type Figure } from "./figures.ts";
-import { dateUtc, EPOCH_DATE, figureForGameNumber, gameNumberFor, todaysGame } from "./game.ts";
-import { matchesFigure, normalize } from "./guess.ts";
+import { FIGURES, type Figure } from "./figures.js";
+import { dateUtc, EPOCH_DATE, figureForGameNumber, gameNumberFor, todaysGame } from "./game.js";
+import { matchesFigure, normalize } from "./guess.js";
 
 function figureById(id: string): Figure {
   const f = FIGURES.find((x) => x.id === id);
