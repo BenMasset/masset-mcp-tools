@@ -14,8 +14,8 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import cors from "cors";
 import express from "express";
 import type { Request, Response } from "express";
-import { DIRECTORY } from "./api/directory.ts";
-import { createDidItWinServer } from "./tools/did-it-win/server.ts";
+import { DIRECTORY } from "./api/directory.js";
+import { createDidItWinServer } from "./tools/did-it-win/server.js";
 
 async function startHttp(): Promise<void> {
   const port = parseInt(process.env.PORT ?? "3006", 10);
@@ -27,7 +27,7 @@ async function startHttp(): Promise<void> {
   app.get("/did-it-win", (_req, res) => res.json(DIRECTORY.tools[0]));
 
   app.get("/did-it-win/preview", async (_req, res) => {
-    const { APP_HTML } = await import("./tools/did-it-win/app-html.generated.ts");
+    const { APP_HTML } = await import("./tools/did-it-win/app-html.generated.js");
     res.type("html").send(APP_HTML);
   });
 
