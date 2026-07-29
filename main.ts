@@ -16,6 +16,7 @@ import cors from "cors";
 import express from "express";
 import type { Request, Response } from "express";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { renderConnectPage } from "./api/connect-page.js";
 import { DIRECTORY } from "./api/directory.js";
 import { createDidItWinServer } from "./tools/did-it-win/server.js";
 import { createChessServer } from "./tools/chess/server.js";
@@ -48,7 +49,14 @@ async function startHttp(): Promise<void> {
   app.use(cors());
   app.use(express.json({ limit: "1mb" }));
 
-  app.get("/", (_req, res) => res.json(DIRECTORY));
+  app.get("/", (req, res) => {
+    if ((req.headers.accept ?? "").includes("text/html")) {
+      res.type("html").send(renderConnectPage());
+    } else {
+      res.json(DIRECTORY);
+    }
+  });
+  app.get("/connect", (_req, res) => res.type("html").send(renderConnectPage()));
 
   for (const [name, tool] of Object.entries(TOOLS)) {
     app.get(`/${name}`, (_req, res) => res.json(DIRECTORY.tools[tool.dirIndex]));
