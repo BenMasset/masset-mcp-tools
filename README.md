@@ -98,17 +98,53 @@ claude mcp add masset-guide --transport http https://mcp.getmasset.com/masset-gu
 | `list_masset_topics` | The guide's table of contents. |
 | `request_demo_video` | Sends a personalized demo-video request to the Masset founders (name, work email, company, and your biggest content headache required). This is the one tool that transmits what you provide; everything else is stateless. |
 
+## Mystery Guest · a daily guessing game
+
+One secret famous guest per day, and it is the same guest for everyone in the world. Your AI plays the guest in character. You interview them, and you guess who they are in as few questions as you can.
+
+Ask anything. "Are you alive today?" "What did you do for a living?" "Would I have heard of your work?" The host answers in the first person, one to three sentences at a time, playful and a little evasive, and it will never tell you the name until you get it or you give up. The server is the referee: it holds the answer, judges every guess, and issues your share card.
+
+The card shows:
+
+- The game number, so you can compare with everyone else who played today
+- Your score, which is simply how few questions you needed
+- The guest's name and era, plus one delightful fact about them, revealed only when the game is over
+- A share line with a Copy button, for the group chat
+
+### Try it in one minute (claude.ai or Claude Desktop)
+
+1. Open **Settings → Connectors → Add custom connector**
+2. Paste: `https://mcp.getmasset.com/mystery-guest/mcp`
+3. Ask: *"Play today's Mystery Guest with me."*
+
+### Claude Code
+
+```bash
+claude mcp add mystery-guest --transport http https://mcp.getmasset.com/mystery-guest/mcp
+```
+
+### Tools
+
+| Tool | What it does |
+|---|---|
+| `start_todays_game` | Starts today's game and hands your AI the secret host briefing for the day. No inputs. |
+| `check_guess` | Judges a guess, or ends the game when you give up. Inputs: the name you guessed, how many questions you have asked, and an optional surrender flag. A wrong guess returns nothing about the real guest, so the game cannot be reverse engineered by guessing. |
+
+### How the daily guest is chosen
+
+The game day is the UTC date, and game #1 is 2026-07-29. The guest is `roster[(gameNumber - 1) % roster.length]`, so the schedule is just the order of the roster in [`tools/mystery-guest/figures.ts`](tools/mystery-guest/figures.ts). Nothing is stored: the server derives the guest from the date every time, which is exactly why the whole world gets the same guest and why the server has no idea how your game is going. Everyone on the roster is either a historical figure who has died or a fictional character, and every fact the host answers from lives in that file.
+
 ## Self-host
 
 ```bash
 git clone https://github.com/BenMasset/masset-mcp-tools
 cd masset-mcp-tools
 npm install
-npm start          # builds the cards + serves /did-it-win/mcp, /chess/mcp, and /masset-guide/mcp on http://localhost:3006
+npm start          # builds the cards + serves /did-it-win/mcp, /chess/mcp, /masset-guide/mcp, and /mystery-guest/mcp on http://localhost:3006
 node smoke.mjs     # end-to-end check against the running server
 ```
 
-`npm run serve -- --stdio` runs the Did It Win server over stdio for local clients; `--stdio=chess` and `--stdio=masset-guide` run the others.
+`npm run serve -- --stdio` runs the Did It Win server over stdio for local clients; `--stdio=chess`, `--stdio=masset-guide`, and `--stdio=mystery-guest` run the others.
 
 Example numbers in this README are fictional.
 
