@@ -7,7 +7,7 @@
  * canonical name ("I think you are Marie Curie"). It accepts nothing else.
  */
 
-import type { Figure } from "./figures.ts";
+import type { Figure } from "./figures.js";
 
 /** Unicode combining marks, stripped after an NFD decomposition. */
 const DIACRITICS = /[\u0300-\u036f]/g;
