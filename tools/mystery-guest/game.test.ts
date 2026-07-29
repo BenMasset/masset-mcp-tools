@@ -255,7 +255,10 @@ test("no string field contains an em dash", () => {
 test("dossier facts are written in the third person, not the figure's voice", () => {
   // Deliberately narrow so regnal numerals ("King Francis I of France", "Elizabeth I")
   // never trip it. These markers only appear in genuinely first-person writing.
-  const firstPerson = [/^I[\s']/, /\bI'(m|ve|ll|d)\b/i, /\bI (am|was|have)\b/, /\b(my|me|mine|myself)\b/i];
+  // "mine" is excluded: as a noun it appears in legitimate facts ("work in a mine").
+  // The pronoun check is case-sensitive: quoted titles and labels capitalize these
+  // words ("Eat Me", "My Fair Lady") while first-person prose lowercases them.
+  const firstPerson = [/^I[\s']/, /\bI'(m|ve|ll|d)\b/i, /\bI (am|was|have)\b/, /\b(my|me|myself)\b/];
   for (const f of FIGURES) {
     for (const fact of f.dossier) {
       for (const marker of firstPerson) {
