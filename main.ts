@@ -1,7 +1,7 @@
 /**
  * Local entry point. HTTP (Streamable HTTP, stateless) by default; --stdio
  * runs a single tool's server for local stdio clients (Claude Desktop):
- * `--stdio` (Did It Win) or `--stdio=masset-guide`.
+ * `--stdio` (Did It Win), `--stdio=chess`, or `--stdio=masset-guide`.
  *
  * Paths mirror production (mcp.getmasset.com):
  *   /                      tool directory
@@ -18,6 +18,7 @@ import type { Request, Response } from "express";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { DIRECTORY } from "./api/directory.js";
 import { createDidItWinServer } from "./tools/did-it-win/server.js";
+import { createChessServer } from "./tools/chess/server.js";
 import { createMassetGuideServer } from "./tools/masset-guide/server.js";
 
 const TOOLS: Record<
@@ -29,10 +30,15 @@ const TOOLS: Record<
     html: () => import("./tools/did-it-win/app-html.generated.js"),
     dirIndex: 0,
   },
+  chess: {
+    create: createChessServer,
+    html: () => import("./tools/chess/app-html.generated.js"),
+    dirIndex: 1,
+  },
   "masset-guide": {
     create: createMassetGuideServer,
     html: () => import("./tools/masset-guide/app-html.generated.js"),
-    dirIndex: 1,
+    dirIndex: 2,
   },
 };
 

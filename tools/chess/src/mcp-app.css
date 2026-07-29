@@ -1,0 +1,352 @@
+/* Check, Mate? : chess card, on the Masset brand system.
+   Sharp corners, white or navy fields, Geist everywhere, pill buttons,
+   Masset Blue spent on selection, legal-move dots, and the CTA. */
+
+@import "./fonts.css";
+
+:root {
+  --blue: #0095FF;
+  --blue-hover: #0078D4;
+  --navy: #0A0F1E;
+  --navy-2: #101828;
+  --soft: #F5F5F5;
+  --hairline: #EEEEEE;
+  --body-gray: #737373;
+  --bg: #FFFFFF;
+  --ink: #0A0F1E;
+  --light-square: #F5F5F5;
+  --dark-square: #22304d;
+  --square-ink-on-light: #0A0F1E;
+  --square-ink-on-dark: #F5F5F5;
+  --glow: 0 2px 16px 0 rgba(0, 149, 255, 0.30);
+  --last-move: rgba(0, 149, 255, 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0A0F1E;
+    --ink: #FFFFFF;
+    --soft: #101828;
+    --hairline: #1D2939;
+    --body-gray: #98A2B3;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0A0F1E;
+  --ink: #FFFFFF;
+  --soft: #101828;
+  --hairline: #1D2939;
+  --body-gray: #98A2B3;
+}
+
+:root[data-theme="light"] {
+  --bg: #FFFFFF;
+  --ink: #0A0F1E;
+  --soft: #F5F5F5;
+  --hairline: #EEEEEE;
+  --body-gray: #737373;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: transparent;
+  color: var(--ink);
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.mono { font-family: "Geist Mono", ui-monospace, SFMono-Regular, monospace; font-variant-numeric: tabular-nums; }
+
+.card {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ---------- Topbar ---------- */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.conn { font-size: 11px; color: var(--body-gray); letter-spacing: 0.06em; }
+
+/* ---------- Status banner ---------- */
+
+.status-banner {
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.status-banner.check { color: var(--blue); }
+.status-banner.gameover { background: var(--navy); color: #fff; }
+.status-banner.demo { background: var(--soft); color: var(--body-gray); font-weight: 400; }
+
+@media (prefers-color-scheme: dark) { .status-banner.gameover { background: var(--navy-2); } }
+:root[data-theme="dark"] .status-banner.gameover { background: var(--navy-2); }
+
+.status-banner.pulsing { animation: pulse 1.4s ease-in-out infinite; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+/* ---------- Layout ---------- */
+
+.layout {
+  display: flex;
+  gap: 0;
+  align-items: flex-start;
+}
+
+.board-wrap {
+  flex: 0 0 auto;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.rail {
+  flex: 1 1 auto;
+  min-width: 200px;
+  padding: 20px 20px 20px 0;
+  border-left: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (max-width: 560px) {
+  .layout { flex-direction: column; }
+  .board-wrap { padding-bottom: 8px; width: 100%; }
+  .rail {
+    border-left: none;
+    border-top: 1px solid var(--hairline);
+    padding: 16px 20px;
+    width: 100%;
+  }
+}
+
+/* ---------- Board ---------- */
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(8, clamp(28px, 5vw, 44px));
+  grid-template-rows: repeat(8, clamp(28px, 5vw, 44px));
+  border: 1px solid var(--hairline);
+  line-height: 0;
+}
+
+.square {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(20px, 3.6vw, 34px);
+  line-height: 1;
+}
+
+.square.light { background: var(--light-square); color: var(--square-ink-on-light); }
+.square.dark { background: var(--dark-square); color: var(--square-ink-on-dark); }
+
+.square.interactive { cursor: pointer; }
+
+.square.last-move::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--last-move);
+}
+
+.square.selected {
+  box-shadow: inset 0 0 0 3px var(--blue);
+}
+
+.square .glyph { position: relative; z-index: 1; user-select: none; }
+
+.square .dot {
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  border-radius: 9999px;
+  background: rgba(0, 149, 255, 0.4);
+  z-index: 1;
+}
+
+.square .dot.capture {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: inset 0 0 0 4px rgba(0, 149, 255, 0.55);
+}
+
+.square .label {
+  position: absolute;
+  font-size: 9px;
+  font-weight: 600;
+  z-index: 1;
+  opacity: 0.65;
+  font-family: "Geist Mono", ui-monospace, monospace;
+}
+
+.square .label.file { bottom: 2px; right: 3px; }
+.square .label.rank { top: 2px; left: 3px; }
+
+/* ---------- Rail sections ---------- */
+
+.section-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--body-gray);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.material-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.chip {
+  border: 1px solid var(--hairline);
+  padding: 4px 10px;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.chip.lead { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+.captured-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.captured-line {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--body-gray);
+  min-height: 20px;
+}
+
+.captured-line .cap-label {
+  font-size: 11px;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  color: var(--body-gray);
+  margin-right: 6px;
+}
+
+.moves-panel { flex: 1 1 auto; min-height: 0; }
+
+.move-list {
+  list-style: none;
+  max-height: 220px;
+  overflow-y: auto;
+  font-size: 13px;
+  display: grid;
+  grid-template-columns: max-content 1fr 1fr;
+  gap: 4px 10px;
+}
+
+.move-list .move-num { color: var(--body-gray); font-family: "Geist Mono", ui-monospace, monospace; }
+.move-list .move-san { font-family: "Geist Mono", ui-monospace, monospace; }
+.move-list .move-san.current { color: var(--blue); font-weight: 600; }
+
+.btn-newgame {
+  align-self: flex-start;
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+  padding: 10px 20px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+@media (prefers-color-scheme: dark) { .btn-newgame { background: var(--blue); box-shadow: var(--glow); } }
+:root[data-theme="dark"] .btn-newgame { background: var(--blue); box-shadow: var(--glow); }
+
+.btn-newgame:hover { opacity: 0.88; }
+
+/* ---------- Promotion picker ---------- */
+
+.promo-overlay[hidden] {
+  display: none;
+}
+
+.promo-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 30, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.promo-picker {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  padding: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.promo-btn {
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--hairline);
+  background: var(--soft);
+  font-size: 32px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.promo-btn:hover { border-color: var(--blue); background: var(--bg); }
+
+/* ---------- Footer ---------- */
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--hairline);
+  font-size: 12px;
+  color: var(--body-gray);
+}
+.footer a { color: inherit; text-underline-offset: 2px; }
+.footer a:hover { color: var(--blue); }

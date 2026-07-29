@@ -6,6 +6,9 @@ import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 
 const base = process.argv[2] ?? "http://localhost:3006";
+
+// --- Did It Win? -----------------------------------------------------------
+
 const client = new Client({ name: "smoke", version: "0.0.1" });
 await client.connect(new StreamableHTTPClientTransport(new URL(`${base}/did-it-win/mcp`)));
 
@@ -44,6 +47,54 @@ const bad = await client.callTool({
 });
 console.log("BAD INPUT isError:", bad.isError, "-", bad.content[0].text);
 if (!bad.isError) throw new Error("expected isError");
+
+console.log("DID IT WIN SMOKE OK");
+
+// --- Check, Mate? ------------------------------------------------------------
+
+const chessClient = new Client({ name: "smoke-chess", version: "0.0.1" });
+await chessClient.connect(new StreamableHTTPClientTransport(new URL(`${base}/chess/mcp`)));
+
+const chessTools = await chessClient.listTools();
+const chessToolNames = chessTools.tools.map((t) => t.name);
+console.log("CHESS TOOLS:", chessToolNames.join(", "));
+for (const name of ["chess_new_game", "chess_move", "chess_position"]) {
+  if (!chessToolNames.includes(name)) throw new Error(`expected chess tool ${name}`);
+}
+
+const chessResource = await chessClient.readResource({ uri: "ui://chess/board.html" });
+console.log("CHESS RESOURCE:", chessResource.contents[0].mimeType, "bytes:", chessResource.contents[0].text.length);
+
+const newGame = await chessClient.callTool({
+  name: "chess_new_game",
+  arguments: {},
+});
+console.log("NEW GAME:", newGame.structuredContent.kind, "-", newGame.structuredContent.message);
+if (newGame.structuredContent.kind !== "chess") throw new Error("expected kind chess");
+
+const startFen = newGame.structuredContent.fen;
+const afterE4 = "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1";
+
+const e4 = await chessClient.callTool({
+  name: "chess_move",
+  arguments: { fen: startFen, move: "e4", moves: [] },
+});
+console.log("E4:", e4.structuredContent.fen);
+if (e4.structuredContent.kind !== "chess") throw new Error("expected kind chess after e4");
+if (e4.structuredContent.fen !== afterE4) {
+  throw new Error(`expected fen after 1.e4 to be "${afterE4}", got "${e4.structuredContent.fen}"`);
+}
+
+const illegal = await chessClient.callTool({
+  name: "chess_move",
+  arguments: { fen: e4.structuredContent.fen, move: "Ke5", moves: e4.structuredContent.moves },
+});
+console.log("ILLEGAL:", illegal.content[0].text.split("\n").slice(0, 1).join(""));
+if (illegal.isError) throw new Error("illegal move should soft-fail, not set isError");
+if (!illegal.content[0].text.includes("Illegal")) throw new Error("expected 'Illegal' in illegal-move text");
+if (illegal.structuredContent.fen !== afterE4) throw new Error("illegal move should leave the fen unchanged");
+
+console.log("CHESS SMOKE OK");
 
 // ---------- Masset Guide ----------
 
