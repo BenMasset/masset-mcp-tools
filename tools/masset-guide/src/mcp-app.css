@@ -1,8 +1,10 @@
 /* Masset Guide · inline answer card, on the Masset brand system.
    Sharp corners, white or navy fields, Geist everywhere,
-   Masset Blue spent on exactly one moment: the primary CTA. */
+   Masset Blue spent on exactly one moment: the primary CTA.
 
-@import "./fonts.css";
+   The Geist faces come in through the fonts.css import in mcp-app.ts. They are
+   deliberately NOT re-imported here: importing them from both places inlines
+   every woff2 twice and roughly doubles the size of this embedded resource. */
 
 :root {
   --blue: #0095FF;
