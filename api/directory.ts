@@ -1,4 +1,4 @@
-/** The tool directory served at / — one entry per free Masset MCP tool. */
+/** The tool directory served at /: one entry per free Masset MCP tool. */
 
 export const DIRECTORY = {
   name: "Masset MCP tools",
@@ -13,6 +13,14 @@ export const DIRECTORY = {
         "with real statistics (two-proportion z-test, Wilson intervals, Bayesian probability-to-beat).",
       mcpEndpoint: "/did-it-win/mcp",
       preview: "/did-it-win/preview",
+    },
+    {
+      name: "Check, Mate?",
+      description:
+        "Play chess against Claude on a real board, right inside the chat. No engine, no accounts: " +
+        "you are playing the model itself.",
+      mcpEndpoint: "/chess/mcp",
+      preview: "/chess/preview",
     },
   ],
 } as const;

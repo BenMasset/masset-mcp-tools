@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Check, Mate?</title>
+  <script type="module" src="/tools/chess/src/mcp-app.ts"></script>
+</head>
+<body>
+  <div id="card" class="card" hidden>
+    <header class="topbar">
+      <span class="eyebrow" id="eyebrow">CHECK, MATE?</span>
+      <span class="conn" id="conn-note"></span>
+    </header>
+
+    <p class="status-banner" id="status-banner" aria-live="polite">&nbsp;</p>
+
+    <div class="layout">
+      <section class="board-wrap">
+        <div class="board" id="board" role="group" aria-label="Chess board"></div>
+      </section>
+
+      <aside class="rail">
+        <div class="material-row" id="material-row"></div>
+
+        <div class="captured-row" id="captured-row"></div>
+
+        <div class="moves-panel">
+          <span class="section-label">MOVES</span>
+          <div class="move-list" id="move-list"></div>
+        </div>
+
+        <button type="button" class="btn-newgame" id="new-game-btn" hidden>New game</button>
+      </aside>
+    </div>
+
+    <div class="promo-overlay" id="promo-overlay" hidden>
+      <div class="promo-picker" id="promo-picker" role="group" aria-label="Choose a piece for promotion"></div>
+    </div>
+
+    <footer class="footer">
+      <span>Free from <a href="https://www.getmasset.com" target="_blank" rel="noopener">Masset</a>, the home for your business content.</span>
+      <a class="footer-src" href="https://github.com/BenMasset/masset-mcp-tools" target="_blank" rel="noopener">Open source</a>
+    </footer>
+  </div>
+</body>
+</html>

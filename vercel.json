@@ -6,6 +6,9 @@
     { "source": "/did-it-win/mcp", "destination": "/api/did-it-win-mcp" },
     { "source": "/did-it-win/preview", "destination": "/api/index" },
     { "source": "/did-it-win", "destination": "/api/index" },
+    { "source": "/chess/mcp", "destination": "/api/chess-mcp" },
+    { "source": "/chess/preview", "destination": "/api/index" },
+    { "source": "/chess", "destination": "/api/index" },
     { "source": "/", "destination": "/api/index" }
   ]
 }
