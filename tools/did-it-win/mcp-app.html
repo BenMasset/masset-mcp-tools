@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Did It Win?</title>
+  <script type="module" src="/tools/did-it-win/src/mcp-app.ts"></script>
+</head>
+<body>
+  <div id="card" class="card" hidden>
+    <header class="topbar">
+      <span class="eyebrow" id="eyebrow">DID IT WIN?</span>
+      <span class="conn" id="conn-note"></span>
+    </header>
+
+    <section class="verdict" id="verdict-banner">
+      <h1 class="verdict-headline" id="verdict-headline">&nbsp;</h1>
+      <p class="verdict-sub" id="verdict-sub"></p>
+    </section>
+
+    <section class="viz" id="viz"></section>
+
+    <section class="prob" id="prob-section" hidden>
+      <div class="prob-label-row">
+        <span class="section-label">PROBABILITY THE VARIANT IS BETTER</span>
+        <span class="prob-value mono" id="prob-value"></span>
+      </div>
+      <div class="meter"><div class="meter-fill" id="prob-fill"></div><div class="meter-mid" title="50% = coin flip"></div></div>
+    </section>
+
+    <section class="progress" id="progress-section" hidden>
+      <div class="prob-label-row">
+        <span class="section-label">DISTANCE TO A RELIABLE ANSWER</span>
+        <span class="prob-value mono" id="progress-value"></span>
+      </div>
+      <div class="meter"><div class="meter-fill navy" id="progress-fill"></div></div>
+      <p class="progress-note" id="progress-note"></p>
+    </section>
+
+    <section class="explain">
+      <p id="explanation"></p>
+    </section>
+
+    <div id="warnings"></div>
+
+    <section class="controls" id="confidence-control" hidden>
+      <div class="prob-label-row">
+        <label class="section-label" for="conf-slider">PROOF STRICTNESS (CONFIDENCE)</label>
+        <span class="prob-value mono" id="conf-value">95%</span>
+      </div>
+      <input type="range" id="conf-slider" min="80" max="99" step="1" value="95">
+      <p class="control-note">Drag to feel the tradeoff: lower confidence calls tests sooner and is wrong more often. 95% is the convention for a reason.</p>
+    </section>
+
+    <details class="details" id="details">
+      <summary>The numbers behind this</summary>
+      <div class="details-grid mono" id="details-grid"></div>
+      <p class="method-note">
+        Method: pooled two-proportion z-test (two-sided) for the verdict gate, Wilson score intervals
+        for the ranges, Bayesian probability-to-beat with flat Beta(1,1) priors, and the classic
+        two-proportion sample-size formula for the finish line. All computed in code; verified against
+        scipy and statsmodels. Nothing you send is stored.
+      </p>
+    </details>
+
+    <footer class="footer">
+      <span>Free from <a href="https://www.getmasset.com" target="_blank" rel="noopener">Masset</a>, the home for your business content.</span>
+      <a class="footer-src" href="https://github.com/BenMasset/masset-mcp-tools" target="_blank" rel="noopener">Open source</a>
+    </footer>
+  </div>
+</body>
+</html>

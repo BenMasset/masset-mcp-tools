@@ -1,0 +1,249 @@
+/* Did It Win? — verdict instrument, on the Masset brand system.
+   Sharp corners, white or navy fields, Geist everywhere, mono numbers,
+   Masset Blue spent on exactly one moment: the verdict. */
+
+@import "./fonts.css";
+
+:root {
+  --blue: #0095FF;
+  --blue-hover: #0078D4;
+  --navy: #0A0F1E;
+  --navy-2: #101828;
+  --soft: #F5F5F5;
+  --hairline: #EEEEEE;
+  --body-gray: #737373;
+  --bg: #FFFFFF;
+  --ink: #0A0F1E;
+  --band-control: rgba(10, 15, 30, 0.14);
+  --band-variant: rgba(0, 149, 255, 0.18);
+  --glow: 0 2px 16px 0 rgba(0, 149, 255, 0.30);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0A0F1E;
+    --ink: #FFFFFF;
+    --soft: #101828;
+    --hairline: #1D2939;
+    --body-gray: #98A2B3;
+    --band-control: rgba(255, 255, 255, 0.16);
+    --band-variant: rgba(0, 149, 255, 0.28);
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: transparent;
+  color: var(--ink);
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.mono { font-family: "Geist Mono", ui-monospace, SFMono-Regular, monospace; font-variant-numeric: tabular-nums; }
+
+.card {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* ---------- Topbar ---------- */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.conn { font-size: 11px; color: var(--body-gray); letter-spacing: 0.06em; }
+
+/* ---------- Verdict ---------- */
+
+.verdict { padding: 28px 20px 22px; }
+
+.verdict-headline {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+.verdict-sub { margin-top: 8px; color: var(--body-gray); font-size: 14px; }
+
+.verdict.v-winner { background: var(--blue); }
+.verdict.v-winner .verdict-headline, .verdict.v-winner .verdict-sub { color: #fff; }
+.verdict.v-winner .verdict-sub { opacity: 0.85; }
+
+.verdict.v-loser { background: var(--navy); }
+.verdict.v-loser .verdict-headline, .verdict.v-loser .verdict-sub { color: #fff; }
+.verdict.v-loser .verdict-sub { opacity: 0.75; }
+
+.verdict.v-not_yet, .verdict.v-no_difference, .verdict.v-plan { background: var(--soft); }
+
+@media (prefers-color-scheme: dark) {
+  .verdict.v-loser { background: var(--navy-2); }
+}
+
+/* ---------- Sections ---------- */
+
+section { padding: 18px 20px; border-bottom: 1px solid var(--hairline); }
+section:last-of-type { border-bottom: none; }
+
+.section-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--body-gray);
+  text-transform: uppercase;
+}
+
+/* ---------- Arm bars (the hero viz) ---------- */
+
+.arm { margin-top: 14px; }
+.arm:first-of-type { margin-top: 10px; }
+
+.arm-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.arm-name { font-size: 13px; font-weight: 600; }
+.arm-rate { font-size: 16px; font-weight: 500; }
+.arm-counts { font-size: 12px; color: var(--body-gray); margin-left: 8px; }
+
+.track {
+  position: relative;
+  height: 22px;
+  background: var(--soft);
+  overflow: hidden;
+}
+
+.band { position: absolute; top: 0; bottom: 0; }
+.band.control { background: var(--band-control); }
+.band.variant { background: var(--band-variant); }
+
+.tick { position: absolute; top: 0; bottom: 0; width: 2px; }
+.tick.control { background: var(--navy); }
+.tick.variant { background: var(--blue); }
+
+@media (prefers-color-scheme: dark) {
+  .tick.control { background: #fff; }
+}
+
+.overlap-note { margin-top: 10px; font-size: 12.5px; color: var(--body-gray); }
+.overlap-note strong { color: var(--ink); font-weight: 600; }
+
+/* ---------- Meters ---------- */
+
+.prob-label-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; gap: 12px; }
+.prob-value { font-size: 15px; font-weight: 500; }
+
+.meter { position: relative; height: 10px; background: var(--soft); overflow: hidden; }
+.meter-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--blue); transition: width 300ms ease; }
+.meter-fill.navy { background: var(--navy); }
+@media (prefers-color-scheme: dark) { .meter-fill.navy { background: #fff; } }
+.meter-mid { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--body-gray); opacity: 0.5; }
+
+.progress-note { margin-top: 8px; font-size: 12.5px; color: var(--body-gray); }
+
+/* ---------- Explanation, warnings ---------- */
+
+.explain p { font-size: 14.5px; }
+
+.warning {
+  margin: 0 20px 14px;
+  padding: 10px 14px;
+  background: var(--soft);
+  border-left: 3px solid var(--navy);
+  font-size: 13px;
+  color: var(--ink);
+}
+#warnings:not(:empty) { padding-top: 14px; }
+@media (prefers-color-scheme: dark) { .warning { border-left-color: #fff; } }
+
+/* ---------- Confidence slider ---------- */
+
+input[type="range"] {
+  width: 100%;
+  appearance: none;
+  height: 4px;
+  background: var(--hairline);
+  outline: none;
+  margin: 10px 0 4px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: var(--blue);
+  box-shadow: var(--glow);
+  cursor: pointer;
+  border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 9999px;
+  background: var(--blue); box-shadow: var(--glow); cursor: pointer; border: none;
+}
+
+.control-note { font-size: 12px; color: var(--body-gray); margin-top: 6px; }
+
+/* ---------- Details ---------- */
+
+.details { border-top: 1px solid var(--hairline); padding: 0 20px; }
+.details summary {
+  padding: 14px 0;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--body-gray);
+  list-style: none;
+}
+.details summary::before { content: "+ "; }
+.details[open] summary::before { content: "− "; }
+
+.details-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 18px;
+  font-size: 13px;
+  padding-bottom: 12px;
+}
+.details-grid .k { color: var(--body-gray); }
+
+.method-note { font-size: 12px; color: var(--body-gray); padding-bottom: 16px; }
+
+/* ---------- Plan card blocks ---------- */
+
+.plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); margin-top: 10px; }
+.plan-cell { background: var(--bg); padding: 14px; }
+.plan-cell .num { font-size: 22px; font-weight: 600; }
+.plan-cell .lbl { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--body-gray); margin-top: 4px; }
+
+@media (max-width: 480px) {
+  .verdict-headline { font-size: 26px; }
+  .plan-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--hairline);
+  font-size: 12px;
+  color: var(--body-gray);
+}
+.footer a { color: inherit; text-underline-offset: 2px; }
+.footer a:hover { color: var(--blue); }

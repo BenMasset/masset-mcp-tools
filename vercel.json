@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/did-it-win/mcp", "destination": "/api/did-it-win-mcp" },
+    { "source": "/did-it-win/preview", "destination": "/api/index" },
+    { "source": "/did-it-win", "destination": "/api/index" },
+    { "source": "/", "destination": "/api/index" }
+  ]
+}

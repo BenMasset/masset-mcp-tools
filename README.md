@@ -1,0 +1,71 @@
+# Masset MCP Tools
+
+Free MCP tools for marketers, from [Masset](https://www.getmasset.com). Each tool renders an interactive card **inside your AI chat** using [MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-07-28/), the interactive-UI extension that became official in the 2026-07-28 MCP spec.
+
+Nothing you send is stored. Every tool is stateless, deterministic, and open source.
+
+## Did It Win? — honest A/B test verdicts
+
+You tell your AI the numbers from your A/B test. It answers with a visual verdict card: **WINNER**, **LOSER**, **NOT YET**, or **NO REAL DIFFERENCE**, with real statistics computed in code (never estimated by the model).
+
+The card shows:
+
+- Both conversion rates with their uncertainty ranges, so you can *see* whether they overlap
+- The probability the variant is genuinely better (the sentence marketers actually want)
+- How many more visitors the test needs before you can trust it, and roughly how many days that is
+- A confidence slider you can drag to feel what "95% confidence" trades away
+- A warning against peeking, because calling tests early is the #1 way teams ship false winners
+
+### Try it in one minute (claude.ai or Claude Desktop)
+
+1. Open **Settings → Connectors → Add custom connector**
+2. Paste: `https://mcp.getmasset.com/did-it-win/mcp`
+3. Ask: *"Control got 168 signups from 4,210 visitors. Variant got 203 from 4,305. Did it win?"*
+
+### Claude Code
+
+```bash
+claude mcp add did-it-win --transport http https://mcp.getmasset.com/did-it-win/mcp
+```
+
+### Tools
+
+| Tool | What it does |
+|---|---|
+| `check_test` | Verdict on a running or finished test. Inputs: visitors + conversions per arm. Optional: confidence (default 0.95), dailyVisitors (enables the finish-date estimate), display labels. |
+| `plan_test` | Sample size before you start. Inputs: baseline conversion rate. Optional: smallest relative lift worth detecting (default 10%), confidence, power, dailyVisitors. |
+
+### The math
+
+All deterministic, all in [`tools/did-it-win/stats.ts`](tools/did-it-win/stats.ts), all unit-tested against scipy/statsmodels reference values (see [`stats.test.ts`](tools/did-it-win/stats.test.ts) and [`scripts/gen-reference.py`](scripts/gen-reference.py)):
+
+- **Pooled two-proportion z-test** (two-sided) — the significance gate
+- **Wilson score intervals** — the uncertainty bars
+- **Bayesian probability-to-beat** — exact closed form with flat Beta(1,1) priors (normal approximation above 20,000 conversions)
+- **Classic two-proportion sample-size formula** — the finish line (80% power by default)
+
+Honesty notes: the "visitors needed" figure is the sample required to detect the *observed* difference, so it moves as your data moves. When detecting the observed gap would take over a million visitors per arm, the tool says "no real difference" instead of stringing you along. And the verdict gate is fixed-horizon statistics: decide your end date up front, then check.
+
+## Self-host
+
+```bash
+git clone https://github.com/BenMasset/masset-mcp-tools
+cd masset-mcp-tools
+npm install
+npm start          # builds the card + serves http://localhost:3006/did-it-win/mcp
+node smoke.mjs     # end-to-end check against the running server
+```
+
+`npm run serve -- --stdio` runs the Did It Win server over stdio for local clients.
+
+Example numbers in this README are fictional.
+
+## Roadmap (v2 candidates)
+
+- A/B/n (multiple variants, with correction)
+- Revenue-per-visitor tests (continuous outcomes)
+- Sequential testing support, so peeking is *managed* instead of just warned about
+
+## License
+
+MIT. Built by [Masset](https://www.getmasset.com), the home for your business content.
