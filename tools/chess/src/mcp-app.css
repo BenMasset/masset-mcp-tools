@@ -299,6 +299,10 @@ html, body {
 
 /* ---------- Promotion picker ---------- */
 
+.promo-overlay[hidden] {
+  display: none;
+}
+
 .promo-overlay {
   position: fixed;
   inset: 0;
