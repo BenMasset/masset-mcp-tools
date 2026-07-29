@@ -65,7 +65,9 @@ function turnMessage(status: Status, playerColor: Color): string {
   if (isPlayerTurn) {
     return status.inCheck ? "Check! Your move." : "Your move.";
   }
-  return status.inCheck ? "Check! Waiting for Claude's move." : "Waiting for Claude's move.";
+  return status.inCheck
+    ? "Check! Claude's turn: send a message in the chat and it will play its move."
+    : "Claude's turn: send a message in the chat and it will play its move.";
 }
 
 /** One-line card message. Shared by chess_new_game and chess_move so the wording stays consistent. */
