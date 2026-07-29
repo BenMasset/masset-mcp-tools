@@ -112,7 +112,6 @@ const app = new App({ name: "Check, Mate?", version: "0.1.0" });
 const $ = <T extends HTMLElement = HTMLElement>(id: string): T => document.getElementById(id) as T;
 
 const cardEl = $("card");
-const connEl = $("conn-note");
 const statusBannerEl = $("status-banner");
 const boardEl = $("board");
 const materialRowEl = $("material-row");
@@ -570,7 +569,6 @@ app.onhostcontextchanged = (ctx) => {
 function enterStandalone(): void {
   if (model.card) return;
   model.standalone = true;
-  connEl.textContent = "DEMO DATA";
   applyCard(buildDemoCard());
 }
 
