@@ -9,6 +9,9 @@
     { "source": "/chess/mcp", "destination": "/api/chess-mcp" },
     { "source": "/chess/preview", "destination": "/api/index" },
     { "source": "/chess", "destination": "/api/index" },
+    { "source": "/masset-guide/mcp", "destination": "/api/masset-guide-mcp" },
+    { "source": "/masset-guide/preview", "destination": "/api/index" },
+    { "source": "/masset-guide", "destination": "/api/index" },
     { "source": "/", "destination": "/api/index" }
   ]
 }
