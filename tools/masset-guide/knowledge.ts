@@ -52,7 +52,7 @@ export const TOPICS: Topic[] = [
       "organize", "tags", "collections", "natural language",
     ],
     facts: [
-      "Ingests content from Google Drive, SharePoint, Notion, Slack, YouTube, Dropbox, and direct upload.",
+      "Ingests content from Google Drive, Notion, YouTube, and Slack, plus direct upload and linked assets from anywhere on the web.",
       "Indexed for natural-language search: ask for what you need, not where it lives.",
       "Assets carry tags, collections, extracted text, and preview images.",
       "Permissions control who sees what, everywhere the library is surfaced.",
@@ -95,7 +95,7 @@ export const TOPICS: Topic[] = [
       "ai tools", "connect ai", "api", "tools", "read", "write", "hallucination",
     ],
     facts: [
-      "32 MCP tools: 20 reads and 12 writes.",
+      "35 MCP tools: 21 reads and 14 writes.",
       "Works with Claude, ChatGPT, Cursor, Copilot, and every other MCP-compatible client.",
       "Every tool enforces the connecting user's Masset permissions: no one can read or change anything over MCP they could not touch in the app.",
       "AI can search assets, pull content, create shares and boards, request new content, and manage training.",
@@ -249,7 +249,7 @@ export const TOPICS: Topic[] = [
     facts: [
       "Slack and Microsoft Teams: full-parity Myca search, sharing, and Training in both.",
       "HubSpot and Salesforce: share from the CRM, engagement writes back to records.",
-      "Google Drive, SharePoint and OneDrive, Notion, YouTube, Dropbox: content sources that feed the library.",
+      "Google Drive, Notion, and YouTube: content sources that feed the library.",
       "Raw files are never uploaded into the third-party tools; downloads always route through Masset, so permissions and version control hold.",
     ],
     body:
@@ -312,7 +312,7 @@ export const TOPICS: Topic[] = [
       "export", "lock in", "leave", "switching",
     ],
     facts: [
-      "Connect Google Drive, SharePoint, Notion, and other sources and content flows into the library.",
+      "Connect Google Drive, Notion, and the other places your content lives, and it flows into the library.",
       "Onboarding is free: the included call covers account setup and content move-in.",
       "The export promise: your content is yours, and you can take all of it with you. No lock-in.",
     ],
