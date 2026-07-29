@@ -46,17 +46,43 @@ All deterministic, all in [`tools/did-it-win/stats.ts`](tools/did-it-win/stats.t
 
 Honesty notes: the "visitors needed" figure is the sample required to detect the *observed* difference, so it moves as your data moves. When detecting the observed gap would take over a million visitors per arm, the tool says "no real difference" instead of stringing you along. And the verdict gate is fixed-horizon statistics: decide your end date up front, then check.
 
+## Masset Guide · ask anything about Masset, right in your AI
+
+Wondering what Masset is, what it costs, how the MCP server works, or whether it fits your team? Connect the Masset Guide and ask in plain language. Answers come from a curated, verified knowledge base (never model guesswork) and render as an inline guide card with the key facts, related topics you can tap through, and links to the real pages.
+
+You can even request a **personalized demo video** without leaving the chat: give it your name, work email, company, and your biggest content headache, and a Masset founder records a walkthrough for exactly that and emails it to you.
+
+### Try it in one minute (claude.ai or Claude Desktop)
+
+1. Open **Settings → Connectors → Add custom connector**
+2. Paste: `https://mcp.getmasset.com/masset-guide/mcp`
+3. Ask: *"What is Masset, and how does it work with Claude?"*
+
+### Claude Code
+
+```bash
+claude mcp add masset-guide --transport http https://mcp.getmasset.com/masset-guide/mcp
+```
+
+### Tools
+
+| Tool | What it does |
+|---|---|
+| `ask_masset` | Any question about Masset: features, integrations, security, pricing, onboarding. Returns grounded product knowledge and renders the guide card. |
+| `list_masset_topics` | The guide's table of contents. |
+| `request_demo_video` | Sends a personalized demo-video request to the Masset founders (name, work email, company, and your biggest content headache required). This is the one tool that transmits what you provide; everything else is stateless. |
+
 ## Self-host
 
 ```bash
 git clone https://github.com/BenMasset/masset-mcp-tools
 cd masset-mcp-tools
 npm install
-npm start          # builds the card + serves http://localhost:3006/did-it-win/mcp
+npm start          # builds the cards + serves /did-it-win/mcp and /masset-guide/mcp on http://localhost:3006
 node smoke.mjs     # end-to-end check against the running server
 ```
 
-`npm run serve -- --stdio` runs the Did It Win server over stdio for local clients.
+`npm run serve -- --stdio` runs the Did It Win server over stdio for local clients; `--stdio=masset-guide` runs the Masset Guide.
 
 Example numbers in this README are fictional.
 

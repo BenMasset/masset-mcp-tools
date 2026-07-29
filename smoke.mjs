@@ -45,5 +45,31 @@ const bad = await client.callTool({
 console.log("BAD INPUT isError:", bad.isError, "-", bad.content[0].text);
 if (!bad.isError) throw new Error("expected isError");
 
+// ---------- Masset Guide ----------
+
+const guide = new Client({ name: "smoke-guide", version: "0.0.1" });
+await guide.connect(new StreamableHTTPClientTransport(new URL(`${base}/masset-guide/mcp`)));
+
+const gTools = await guide.listTools();
+console.log("GUIDE TOOLS:", gTools.tools.map((t) => t.name).join(", "));
+if (gTools.tools.length !== 3) throw new Error("expected 3 guide tools");
+
+const gRes = await guide.readResource({ uri: "ui://masset-guide/card.html" });
+console.log("GUIDE RESOURCE:", gRes.contents[0].mimeType, "bytes:", gRes.contents[0].text.length);
+
+const pricing = await guide.callTool({
+  name: "ask_masset",
+  arguments: { question: "how much does Masset cost?" },
+});
+console.log("GUIDE pricing topics:", pricing.structuredContent.topicIds.join(", "));
+if (pricing.structuredContent.topicIds[0] !== "pricing") throw new Error("expected pricing topic first");
+
+const noMatch = await guide.callTool({
+  name: "ask_masset",
+  arguments: { question: "zzz qqq xyzzy" },
+});
+if (noMatch.structuredContent.kind !== "no_match") throw new Error("expected no_match");
+console.log("GUIDE no_match: ok");
+
 console.log("SMOKE OK");
 process.exit(0);

@@ -1,0 +1,202 @@
+/* Masset Guide · inline answer card, on the Masset brand system.
+   Sharp corners, white or navy fields, Geist everywhere,
+   Masset Blue spent on exactly one moment: the primary CTA. */
+
+@import "./fonts.css";
+
+:root {
+  --blue: #0095FF;
+  --blue-hover: #0078D4;
+  --navy: #0A0F1E;
+  --navy-2: #101828;
+  --soft: #F5F5F5;
+  --hairline: #EEEEEE;
+  --body-gray: #737373;
+  --bg: #FFFFFF;
+  --ink: #0A0F1E;
+  --glow: 0 2px 16px 0 rgba(0, 149, 255, 0.30);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0A0F1E;
+    --ink: #FFFFFF;
+    --soft: #101828;
+    --hairline: #1D2939;
+    --body-gray: #98A2B3;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: transparent;
+  color: var(--ink);
+  font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.card {
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* ---------- Topbar ---------- */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.conn {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--body-gray);
+}
+
+/* ---------- Answer ---------- */
+
+.answer { padding: 24px 20px 8px; }
+
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.one-liner {
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--body-gray);
+}
+
+.body {
+  margin-top: 14px;
+  font-size: 15px;
+}
+
+/* ---------- Facts ---------- */
+
+.facts { padding: 18px 20px; }
+
+.section-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--body-gray);
+  margin-bottom: 10px;
+}
+
+.facts ul { list-style: none; }
+
+.facts li {
+  position: relative;
+  padding: 8px 0 8px 22px;
+  border-top: 1px solid var(--hairline);
+  font-size: 14px;
+}
+
+.facts li:first-child { border-top: none; }
+
+.facts li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 15px;
+  width: 8px;
+  height: 8px;
+  background: var(--blue);
+}
+
+/* ---------- Related chips ---------- */
+
+.related { padding: 4px 20px 18px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.chip {
+  appearance: none;
+  border: 1px solid var(--hairline);
+  background: var(--soft);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.chip:hover { border-color: var(--blue); }
+
+/* ---------- CTAs ---------- */
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 4px 20px 22px;
+}
+
+.btn-primary,
+.btn-secondary {
+  appearance: none;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 11px 22px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--blue);
+  color: #FFFFFF;
+  box-shadow: var(--glow);
+}
+
+.btn-primary:hover { background: var(--blue-hover); }
+
+.btn-secondary {
+  background: var(--navy);
+  color: #FFFFFF;
+}
+
+@media (prefers-color-scheme: dark) {
+  .btn-secondary { background: var(--navy-2); border: 1px solid var(--hairline); }
+}
+
+.btn-secondary:hover { opacity: 0.9; }
+
+/* ---------- Footer ---------- */
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--hairline);
+  font-size: 12px;
+  color: var(--body-gray);
+}
+
+.footer a { color: inherit; }

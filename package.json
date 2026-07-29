@@ -10,7 +10,8 @@
   },
   "scripts": {
     "build:did-it-win": "cross-env INPUT=tools/did-it-win/mcp-app.html vite build && node scripts/embed-html.mjs did-it-win",
-    "build": "npm run build:did-it-win && tsc --noEmit",
+    "build:masset-guide": "cross-env INPUT=tools/masset-guide/mcp-app.html vite build && node scripts/embed-html.mjs masset-guide",
+    "build": "npm run build:did-it-win && npm run build:masset-guide && tsc --noEmit",
     "test": "node --test tools/**/*.test.ts",
     "serve": "tsx main.ts",
     "start": "npm run build && npm run serve",
@@ -29,6 +30,7 @@
     "@types/node": "^22.10.0",
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
+    "geist": "^1.7.2",
     "tsx": "^4.19.0",
     "typescript": "^5.9.3",
     "vite": "^6.0.0",

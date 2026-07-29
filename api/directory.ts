@@ -14,5 +14,14 @@ export const DIRECTORY = {
       mcpEndpoint: "/did-it-win/mcp",
       preview: "/did-it-win/preview",
     },
+    {
+      name: "Masset Guide",
+      description:
+        "Ask anything about Masset, the home for your business content: features, integrations, security, " +
+        "pricing, and how to try it. Grounded answers with an inline guide card, plus a personalized " +
+        "demo-video request straight from the conversation.",
+      mcpEndpoint: "/masset-guide/mcp",
+      preview: "/masset-guide/preview",
+    },
   ],
 } as const;

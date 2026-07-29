@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Masset Guide</title>
+  <script type="module" src="/tools/masset-guide/src/mcp-app.ts"></script>
+</head>
+<body>
+  <div id="card" class="card" hidden>
+    <header class="topbar">
+      <span class="eyebrow">MASSET GUIDE</span>
+      <span class="conn" id="conn-note"></span>
+    </header>
+
+    <section class="answer">
+      <h1 class="title" id="topic-title">&nbsp;</h1>
+      <p class="one-liner" id="topic-oneliner"></p>
+      <p class="body" id="topic-body"></p>
+    </section>
+
+    <section class="facts">
+      <span class="section-label">THE FACTS</span>
+      <ul id="facts-list"></ul>
+    </section>
+
+    <section class="related" id="related-section" hidden>
+      <span class="section-label">KEEP EXPLORING</span>
+      <div class="chips" id="related-chips"></div>
+    </section>
+
+    <section class="cta-row">
+      <button class="btn-primary" id="cta-read">Read more on getmasset.com</button>
+      <button class="btn-secondary" id="cta-try">Try Masset</button>
+    </section>
+
+    <footer class="footer">
+      <span>Free from <a href="https://www.getmasset.com" target="_blank" rel="noopener">Masset</a>, the home for your business content.</span>
+      <a class="footer-src" href="https://github.com/BenMasset/masset-mcp-tools" target="_blank" rel="noopener">Open source</a>
+    </footer>
+  </div>
+</body>
+</html>

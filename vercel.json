@@ -6,6 +6,9 @@
     { "source": "/did-it-win/mcp", "destination": "/api/did-it-win-mcp" },
     { "source": "/did-it-win/preview", "destination": "/api/index" },
     { "source": "/did-it-win", "destination": "/api/index" },
+    { "source": "/masset-guide/mcp", "destination": "/api/masset-guide-mcp" },
+    { "source": "/masset-guide/preview", "destination": "/api/index" },
+    { "source": "/masset-guide", "destination": "/api/index" },
     { "source": "/", "destination": "/api/index" }
   ]
 }
