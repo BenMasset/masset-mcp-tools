@@ -10,7 +10,8 @@
   },
   "scripts": {
     "build:did-it-win": "cross-env INPUT=tools/did-it-win/mcp-app.html vite build && node scripts/embed-html.mjs did-it-win",
-    "build": "npm run build:did-it-win && tsc --noEmit",
+    "build:chess": "cross-env INPUT=tools/chess/mcp-app.html vite build && node scripts/embed-html.mjs chess",
+    "build": "npm run build:did-it-win && npm run build:chess && tsc --noEmit",
     "test": "node --test tools/**/*.test.ts",
     "serve": "tsx main.ts",
     "start": "npm run build && npm run serve",
@@ -19,6 +20,7 @@
   "dependencies": {
     "@modelcontextprotocol/ext-apps": "^1.7.0",
     "@modelcontextprotocol/sdk": "^1.29.0",
+    "chess.js": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "zod": "^4.1.13"

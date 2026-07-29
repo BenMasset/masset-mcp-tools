@@ -4,7 +4,7 @@ Free MCP tools for marketers, from [Masset](https://www.getmasset.com). Each too
 
 Nothing you send is stored. Every tool is stateless, deterministic, and open source.
 
-## Did It Win? — honest A/B test verdicts
+## Did It Win? Honest A/B test verdicts
 
 You tell your AI the numbers from your A/B test. It answers with a visual verdict card: **WINNER**, **LOSER**, **NOT YET**, or **NO REAL DIFFERENCE**, with real statistics computed in code (never estimated by the model).
 
@@ -39,12 +39,38 @@ claude mcp add did-it-win --transport http https://mcp.getmasset.com/did-it-win/
 
 All deterministic, all in [`tools/did-it-win/stats.ts`](tools/did-it-win/stats.ts), all unit-tested against scipy/statsmodels reference values (see [`stats.test.ts`](tools/did-it-win/stats.test.ts) and [`scripts/gen-reference.py`](scripts/gen-reference.py)):
 
-- **Pooled two-proportion z-test** (two-sided) — the significance gate
-- **Wilson score intervals** — the uncertainty bars
-- **Bayesian probability-to-beat** — exact closed form with flat Beta(1,1) priors (normal approximation above 20,000 conversions)
-- **Classic two-proportion sample-size formula** — the finish line (80% power by default)
+- **Pooled two-proportion z-test** (two-sided): the significance gate
+- **Wilson score intervals**: the uncertainty bars
+- **Bayesian probability-to-beat**: exact closed form with flat Beta(1,1) priors (normal approximation above 20,000 conversions)
+- **Classic two-proportion sample-size formula**: the finish line (80% power by default)
 
 Honesty notes: the "visitors needed" figure is the sample required to detect the *observed* difference, so it moves as your data moves. When detecting the observed gap would take over a million visitors per arm, the tool says "no real difference" instead of stringing you along. And the verdict gate is fixed-horizon statistics: decide your end date up front, then check.
+
+## Check, Mate? Chess against Claude
+
+You play chess against Claude on a real, interactive board, right inside the chat. There is no chess engine anywhere in this tool. Claude picks its own moves, and [chess.js](https://github.com/jhlywa/chess.js) enforces the rules (legal moves, check, checkmate, stalemate, draws). The tool is stateless: every call passes the current position (FEN) and move history back in, and gets the new position back out.
+
+Claude's chess is honestly not that strong. Expect an enthusiastic club player at best, not a grandmaster, and that is most of the fun of it.
+
+### Try it in one minute (claude.ai or Claude Desktop)
+
+1. Open **Settings → Connectors → Add custom connector**
+2. Paste: `https://mcp.getmasset.com/chess/mcp`
+3. Ask: *"Let's play chess. I'll take white."*
+
+### Claude Code
+
+```bash
+claude mcp add chess --transport http https://mcp.getmasset.com/chess/mcp
+```
+
+### Tools
+
+| Tool | What it does |
+|---|---|
+| `chess_new_game` | Starts a game and renders the board. Inputs: player_color (which color the human plays, default white), optional custom starting fen. |
+| `chess_move` | Plays one move and renders the updated board. Inputs: fen, move (SAN like Nf3 or UCI like g1f3), moves (the SAN history so far), player_color. Illegal moves fail softly: the position stays unchanged and a few legal alternatives are suggested. |
+| `chess_position` | No board, just analysis: legal moves, checks available, safe captures, hanging pieces, material balance, move number, and game phase. Claude calls this before choosing a move. |
 
 ## Self-host
 
