@@ -21,6 +21,7 @@ import { DIRECTORY } from "./api/directory.js";
 import { createDidItWinServer } from "./tools/did-it-win/server.js";
 import { createChessServer } from "./tools/chess/server.js";
 import { createMassetGuideServer } from "./tools/masset-guide/server.js";
+import { createMysteryGuestServer } from "./tools/mystery-guest/server.js";
 
 const TOOLS: Record<
   string,
@@ -40,6 +41,11 @@ const TOOLS: Record<
     create: createMassetGuideServer,
     html: () => import("./tools/masset-guide/app-html.generated.js"),
     dirIndex: 2,
+  },
+  "mystery-guest": {
+    create: createMysteryGuestServer,
+    html: () => import("./tools/mystery-guest/app-html.generated.js"),
+    dirIndex: 3,
   },
 };
 

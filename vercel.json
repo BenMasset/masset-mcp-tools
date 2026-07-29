@@ -13,6 +13,9 @@
     { "source": "/masset-guide/preview", "destination": "/api/index" },
     { "source": "/masset-guide", "destination": "/api/index" },
     { "source": "/connect", "destination": "/api/index" },
+    { "source": "/mystery-guest/mcp", "destination": "/api/mystery-guest-mcp" },
+    { "source": "/mystery-guest/preview", "destination": "/api/index" },
+    { "source": "/mystery-guest", "destination": "/api/index" },
     { "source": "/", "destination": "/api/index" }
   ]
 }

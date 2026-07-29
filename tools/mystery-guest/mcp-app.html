@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Mystery Guest</title>
+  <script type="module" src="/tools/mystery-guest/src/mcp-app.ts"></script>
+</head>
+<body>
+  <div id="card" class="card" hidden>
+    <header class="topbar">
+      <span class="eyebrow mono" id="eyebrow">MYSTERY GUEST</span>
+      <span class="conn mono" id="conn-note"></span>
+    </header>
+
+    <section class="hero" id="hero" role="status">
+      <span class="hero-eyebrow mono" id="hero-eyebrow"></span>
+      <h1 class="hero-title" id="hero-title">&nbsp;</h1>
+      <p class="hero-meta mono" id="hero-meta" hidden></p>
+      <div class="accent-rule" id="accent-rule" hidden></div>
+      <p class="hero-line" id="hero-line"></p>
+    </section>
+
+    <section class="note" id="note-section" hidden>
+      <p id="note-text"></p>
+    </section>
+
+    <section class="fact" id="fact-section" hidden>
+      <span class="section-label">ONE MORE THING ABOUT THEM</span>
+      <p id="fact-text"></p>
+    </section>
+
+    <section class="share" id="share-section" hidden>
+      <span class="section-label">YOUR SHARE CARD</span>
+      <p class="share-text" id="share-text"></p>
+      <div class="share-row">
+        <button class="btn-copy" id="copy-btn" type="button">Copy</button>
+        <span class="share-note" id="share-note">A new guest is seated every day at midnight UTC.</span>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Free from <a href="https://www.getmasset.com" target="_blank" rel="noopener">Masset</a>, the home for your business content.</span>
+      <a class="footer-src" href="https://github.com/BenMasset/masset-mcp-tools" target="_blank" rel="noopener">Open source</a>
+    </footer>
+  </div>
+</body>
+</html>

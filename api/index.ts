@@ -12,6 +12,7 @@ const TOOL_PREFIXES: Record<string, { dirIndex: number; html: () => Promise<{ AP
   "/did-it-win": { dirIndex: 0, html: () => import("../tools/did-it-win/app-html.generated.js") },
   "/chess": { dirIndex: 1, html: () => import("../tools/chess/app-html.generated.js") },
   "/masset-guide": { dirIndex: 2, html: () => import("../tools/masset-guide/app-html.generated.js") },
+  "/mystery-guest": { dirIndex: 3, html: () => import("../tools/mystery-guest/app-html.generated.js") },
 };
 
 export default async function handler(req: IncomingMessage, res: ServerResponse): Promise<void> {

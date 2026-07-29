@@ -31,5 +31,14 @@ export const DIRECTORY = {
       mcpEndpoint: "/masset-guide/mcp",
       preview: "/masset-guide/preview",
     },
+    {
+      name: "Mystery Guest",
+      description:
+        "A daily guessing game: one famous guest per day for the whole world, played inside your AI. " +
+        "Your AI hosts in character, you interview them and guess who they are in as few questions as " +
+        "possible, and you get a share card with your score.",
+      mcpEndpoint: "/mystery-guest/mcp",
+      preview: "/mystery-guest/preview",
+    },
   ],
 } as const;
